@@ -1,0 +1,5 @@
+.idea/*
+.rubocop.yml
+.ruby-gemset
+.ruby-version
+.unused/*
