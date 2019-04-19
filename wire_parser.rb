@@ -1,12 +1,15 @@
+# frozen_string_literal: true
+
 require 'parslet'
 require 'parslet/convenience'
 
+# rubocop:disable Metrics/LineLength
 class WireParser < Parslet::Parser
   rule(:caption) { str('Провод') }
   rule(:numbers) { match('[0-9]').repeat }
   rule(:up_letters) { match('^[А-Я]').repeat }
   rule(:small_letters) { match('[а-я]').repeat }
-  rule(:whitespace) { match("[ \\t,]").repeat }
+  rule(:whitespace) { match('[ \\t,]').repeat }
 
   rule(:name1) { up_letters }
   rule(:name2) { up_letters >> small_letters >> up_letters }
@@ -16,9 +19,9 @@ class WireParser < Parslet::Parser
 
   rule(:model1) { name >> name_prefix1.maybe }
   rule(:model2) { name >> name_prefix2.maybe }
-  rule(:model) { (model2 | model1).as(:model) } #
+  rule(:model) { (model2 | model1).as(:model) }
 
-  rule(:diameter) { numbers >> str(',') >> numbers | numbers}
+  rule(:diameter) { numbers >> str(',') >> numbers | numbers }
   rule(:size_delimiter) { match('[xх]') }
   rule(:size1) { (diameter >> size_delimiter >> diameter) | diameter }
   rule(:size) { ((diameter >> match('[xх]')).maybe >> diameter >> (str('/') >> diameter).maybe).as(:size) }
@@ -52,3 +55,4 @@ class WireParser < Parslet::Parser
 
   root :line
 end
+# rubocop:enable Metrics/LineLength
