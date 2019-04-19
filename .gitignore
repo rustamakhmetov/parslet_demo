@@ -2,4 +2,4 @@
 .rubocop.yml
 .ruby-gemset
 .ruby-version
-.unused/*
+unused/

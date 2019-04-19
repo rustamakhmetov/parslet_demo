@@ -30,12 +30,12 @@ class WireParser < Parslet::Parser
 
   rule(:model) do
     (
-      (name1 | name2) >>
-      (str('-') >> numbers | str('-') >> up_letters)
+      (name2 | name1) >>
+      (str('-').maybe >> (up_letters | numbers).maybe)
     ).as(:model)
   end
 
-  rule(:diameter) { numbers >> str(',') >> numbers }
+  rule(:diameter) { numbers >> str(',') >> numbers | numbers}
   rule(:size) { ((diameter >> match('[xх]')).maybe >> diameter >> (str('/') >> diameter).maybe).as(:size) }
 
   rule(:color) { (small_letters >> (str('-') >> small_letters).maybe).as(:color) }
@@ -66,7 +66,8 @@ data = [
   'Провод ПуГВ 1x6, зеленый-желтый ТУ 16-705.501-2010',
   'Провод АПБ 5,20х12,50/0,45 прям.сеч.',
   'ПуГВ-ХЛ 2х16 ГОСТ',
-  'ПуГВ-ХЛ 5,20х12,50'
+  'Провод АПБ 5,20х12,50/0,45',
+  'ПуГВ-100-ХЛ 2х16 ГОСТ'
 ]
 
 parser = WireParser.new
