@@ -9,16 +9,10 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'phrasie'
 gem 'rubocop-performance'
-gem 'ruby-readability', require: 'readability'
-#gem 'treetop'
-#gem 'citrus'
 gem 'parslet'
-#gem 'kpeg'
-
 
 gem 'pry'
 gem 'pry-byebug'
 gem 'byebug', platforms: %i[mri mingw x64_mingw]
-#gem 'rspec'
+gem 'rspec'
